@@ -5,26 +5,26 @@ $(document).ready(function(){
     // Make request to Github
     $.ajax({
         url:'https://api.github.com/users/'+username,
-        data:{
-          client_id:'b9315bcd5a07fcd759d8',
-          client_secret:'a2b698bf7e7c02f898197cf136d1a41f704ca8e4'
-        }
+        // data:{
+        //   client_id:'b9315bcd5a07fcd759d8',
+        //   client_secret:'a2b698bf7e7c02f898197cf136d1a41f704ca8e4'
+        // }
     }).done(function(user){
       $.ajax({
         url:'https://api.github.com/users/'+username+'/repos',
-        data:{
-          client_id:'b9315bcd5a07fcd759d8',
-          client_secret:'a2b698bf7e7c02f898197cf136d1a41f704ca8e4',
-          sort: 'created: asc',
-          per_page: 5
-        }
+        // data:{
+        //   client_id:'b9315bcd5a07fcd759d8',
+        //   client_secret:'a2b698bf7e7c02f898197cf136d1a41f704ca8e4',
+        //   sort: 'created: asc',
+        //   per_page: 5
+        // }
       }).done(function(repos){
         $.each(repos, function(index, repo){
           $('#repos').append(`
             <div class="card">
               <div class="row">
                 <div class="col-md-7">
-                  <strong>${repo.name}</strong>: ${repo.description}
+                  <strong>${repo.name}</strong>: ${repo.description || "Description not provided"}
                 </div>
                 <div class="col-md-3">
                   <span class="badge badge-dark">Forks: ${repo.forks_count}</span>
@@ -55,9 +55,9 @@ $(document).ready(function(){
               <span class="badge badge-info">Following: ${user.following}</span>
               <br><br>
               <ul class="list-group">
-                <li class="list-group-item">Company: ${user.company}</li>
+                <li class="list-group-item">Company: ${user.company || "Not Provided"}</li>
                 <li class="list-group-item">Website/blog: <a href="${user.blog}" target="_blank">${user.blog}</a></li>
-                <li class="list-group-item">Location: ${user.location}</li>
+                <li class="list-group-item">Location: ${user.location || "Not Provided"}</li>
                 <li class="list-group-item">Member Since: ${user.created_at}</li>
               </ul>
               </div>
